@@ -15,6 +15,8 @@ const BookSchema = new mongoose.Schema({
         series: String        
 });
 
+
+
 const Book = mongoose.model(
     // Model name
     "Book", 
@@ -30,4 +32,3 @@ module.exports = {
     Book, // Model
     BookSchema  // Schema
 };
-
