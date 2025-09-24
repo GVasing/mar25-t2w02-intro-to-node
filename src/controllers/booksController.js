@@ -1,10 +1,15 @@
 const express = require("express");
 const { Book } = require("../models/BookModel");
+const { Author } = require("../models/authorModel");
 const router = express.Router();
 
 // GET all books from the database
 router.get("/", async (request, response) => {
     let results = await Book.find();
+
+    // Add author data for all authors referenced in each book document
+    await Book.populate(results, {path: "author"});
+
     response.json({
         data: results
     });
@@ -73,7 +78,6 @@ router.patch("/", async (request, response) => {
 router.delete("/", async (request, response) => {
     // let results = await Book.deleteOne;
     
-
     response.json({
         results: results
     })

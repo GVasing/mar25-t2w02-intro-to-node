@@ -1,3 +1,4 @@
+const { Author } = require("../models/authorModel");
 const { Book } = require("../models/BookModel");
 const { dbConnect, dbClose } = require("../utils/database");
 
@@ -7,10 +8,26 @@ async function seed() {
     await dbConnect();
 
     // 2. Start seeding to database
+
+    let authorsData = [
+        {
+            name: "Douglas Adams",
+            bio: "Real funny sci-fi author"
+        },
+        {
+            name: "Generic Author"
+        }
+    ]
+
+    let authorSeedResult = await Author.insertMany(authorsData);
+
+    let douglasAdams = await Author.findOne({name:"Douglas Adams"});
+    let genericAuthor = await Author.findOne({name:"Generic Author"});
+
     let booksData = [{
         title: "Hitchhikers Guide To The Galaxy",
         author: [
-        "Douglas Adams"
+            douglasAdams.id
         ],
         isbn: ["bananas", "bananas2"],
         series: "Hitchhikers Guide To The Galaxy"
@@ -18,7 +35,7 @@ async function seed() {
     {
         title: "Generic Book",
         author: [
-        "Generic Author"
+            genericAuthor.id
         ],
         isbn: ["mango"],
         series: "Generic Series of Generic Books"
