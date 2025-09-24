@@ -4,7 +4,7 @@
 const { default: mongoose } = require("mongoose");
 const { Book } = require("../models/BookModel");
 
-async function dbconnect(){
+async function dbConnect(){
     try {
         await mongoose.connect("mongodb://127.0.0.1:27017/SuperCoolExampleDatabase");
         console.log("Database Conencted.");
@@ -20,7 +20,7 @@ async function dbClose() {
 
 
 async function dbSandbox(){
-    await dbconnect();
+    await dbConnect();
 
     let hgtth = new Book({
         title: "Hitchhikers Guide To The Galaxy",
@@ -36,4 +36,8 @@ async function dbSandbox(){
     await dbClose();
 }
 
-dbSandbox();
+module.exports = {
+    dbConnect, dbClose
+};
+
+// dbSandbox();
