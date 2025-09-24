@@ -1,22 +1,33 @@
 const { default: mongoose } = require("mongoose");
 
+const BookSchema = new mongoose.Schema({
+        // Model properties
+        title:{
+            type: String,
+            required: true
+            // unique: true
+        },
+        isbn: [{
+            type: String,
+            unique: true
+        }],
+        author: [String],
+        series: String        
+});
+
 const Book = mongoose.model(
     // Model name
     "Book", 
     
-    // Model properties
-    {
-        title:{
-            type: String,
-            required: true
-        },
-        isbn: [String],
-        author: [String],
-        series: String        
-    }
+    // Model Schema
+    BookSchema
+
 );
 
+// const Book = mongoose.model("Book", BookSchema)
+
 module.exports = {
-    Book
+    Book, // Model
+    BookSchema  // Schema
 };
 

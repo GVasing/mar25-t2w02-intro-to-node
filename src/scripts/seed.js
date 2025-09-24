@@ -12,6 +12,7 @@ async function seed() {
         author: [
         "Douglas Adams"
         ],
+        isbn: ["bananas", "bananas2"],
         series: "Hitchhikers Guide To The Galaxy"
     },
     {
@@ -19,8 +20,9 @@ async function seed() {
         author: [
         "Generic Author"
         ],
+        isbn: ["mango"],
         series: "Generic Series of Generic Books"
-    }
+    },
     ];
 
     let seedResult = await Book.insertMany(booksData);
