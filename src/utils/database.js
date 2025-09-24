@@ -2,6 +2,7 @@
 // such as connecting, disconnecting, seeding, and deleting from the database
 
 const { default: mongoose } = require("mongoose");
+const { Book } = require("../models/BookModel");
 
 async function dbconnect(){
     try {
@@ -17,5 +18,22 @@ async function dbClose() {
     console.log("Database Disconnected");
 }
 
-dbconnect();
-dbClose();
+
+async function dbSandbox(){
+    await dbconnect();
+
+    let hgtth = new Book({
+        title: "Hitchhikers Guide To The Galaxy",
+        author: [
+            "Douglas Adams"
+        ],
+        series: "Hitchhikers Guide To The Galaxy"
+    });
+
+    await hgtth.save();
+    console.log(hgtth);
+
+    await dbClose();
+}
+
+dbSandbox();
