@@ -19,7 +19,7 @@ router.get("/id/:id", async (request, response) => {
     });
 });
 
-// 
+// GET book by search query
 // http://localhost:3000/books/search?title=bananas&author=Some%20Random%20Dude
 router.get("/search", async (request, response) => {
 
@@ -37,6 +37,46 @@ router.get("/search", async (request, response) => {
     // response.json({
     //     data: results
     // });
+});
+
+// POST to make book
+router.post("/", async (request, response) => {
+
+    // To clone object
+    let readyToUseData = {...request.body};
+    // OR
+    // More comprehensive way to clone object at various nested depths
+    // let readyToUseData = JSON.parse(JSON.stringinfy(request.body));
+
+    if (readyToUseData.title && typeof readyToUseData != "string"){
+        readyToUseData.title = readyToUseData.title.toString();
+    }
+
+    let results = await new Book(readyToUseData).save();
+
+    response.json({
+        results: results
+    })
+});
+
+// PATCH to partially update existing book
+router.patch("/", async (request, response) => {
+
+    let results = null;
+
+    response.json({
+        results: results
+    })
+});
+
+// DELETE to remove book
+router.delete("/", async (request, response) => {
+    // let results = await Book.deleteOne;
+    
+
+    response.json({
+        results: results
+    })
 });
 
 
